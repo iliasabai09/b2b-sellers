@@ -1,9 +1,9 @@
 import 'dotenv/config';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../src/generated/prisma/client';
+
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   // Neon требует SSL
@@ -45,8 +45,10 @@ async function main() {
   console.log('Regions seeded successfully');
 
   // Берём регионы в мапу: name -> id
-  const regionRows = await prisma.region.findMany({ select: { id: true, name: true } });
-  const regionByName = new Map(regionRows.map(r => [r.name, r.id]));
+  const regionRows = await prisma.region.findMany({
+    select: { id: true, name: true },
+  });
+  const regionByName = new Map(regionRows.map((r) => [r.name, r.id]));
 
   const cities: Array<{ name: string; region: string }> = [
     // Города респ. значения (для простоты привяжем к региону-локации)
