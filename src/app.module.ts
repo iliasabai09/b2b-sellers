@@ -3,10 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from '@core/prisma/prisma.module';
 import { RegionsModule } from '@modules/regions/regions.module';
-import { CityModule } from './modules/city/city.module';
+import { CityModule } from '@modules/city/city.module';
+import { AuthModule } from '@modules/auth/auth.module';
 
 @Module({
-  imports: [PrismaModule, RegionsModule, CityModule],
+  imports: [PrismaModule, RegionsModule, CityModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

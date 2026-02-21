@@ -242,8 +242,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: number
   phone: string
-  firstName: string
-  lastName: string
+  firstName: string | null
+  lastName: string | null
   middleName: string | null
   birthDate: Date | null
   gender: $Enums.Gender | null
@@ -283,8 +283,8 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
   phone?: Prisma.StringFilter<"User"> | string
-  firstName?: Prisma.StringFilter<"User"> | string
-  lastName?: Prisma.StringFilter<"User"> | string
+  firstName?: Prisma.StringNullableFilter<"User"> | string | null
+  lastName?: Prisma.StringNullableFilter<"User"> | string | null
   middleName?: Prisma.StringNullableFilter<"User"> | string | null
   birthDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   gender?: Prisma.EnumGenderNullableFilter<"User"> | $Enums.Gender | null
@@ -302,8 +302,8 @@ export type UserWhereInput = {
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  firstName?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
+  firstName?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastName?: Prisma.SortOrderInput | Prisma.SortOrder
   middleName?: Prisma.SortOrderInput | Prisma.SortOrder
   birthDate?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -324,8 +324,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  firstName?: Prisma.StringFilter<"User"> | string
-  lastName?: Prisma.StringFilter<"User"> | string
+  firstName?: Prisma.StringNullableFilter<"User"> | string | null
+  lastName?: Prisma.StringNullableFilter<"User"> | string | null
   middleName?: Prisma.StringNullableFilter<"User"> | string | null
   birthDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   gender?: Prisma.EnumGenderNullableFilter<"User"> | $Enums.Gender | null
@@ -343,8 +343,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  firstName?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
+  firstName?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastName?: Prisma.SortOrderInput | Prisma.SortOrder
   middleName?: Prisma.SortOrderInput | Prisma.SortOrder
   birthDate?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -369,8 +369,8 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   phone?: Prisma.StringWithAggregatesFilter<"User"> | string
-  firstName?: Prisma.StringWithAggregatesFilter<"User"> | string
-  lastName?: Prisma.StringWithAggregatesFilter<"User"> | string
+  firstName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  lastName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   middleName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   birthDate?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"User"> | $Enums.Gender | null
@@ -386,8 +386,8 @@ export type UserScalarWhereWithAggregatesInput = {
 
 export type UserCreateInput = {
   phone: string
-  firstName: string
-  lastName: string
+  firstName?: string | null
+  lastName?: string | null
   middleName?: string | null
   birthDate?: Date | string | null
   gender?: $Enums.Gender | null
@@ -405,8 +405,8 @@ export type UserCreateInput = {
 export type UserUncheckedCreateInput = {
   id?: number
   phone: string
-  firstName: string
-  lastName: string
+  firstName?: string | null
+  lastName?: string | null
   middleName?: string | null
   birthDate?: Date | string | null
   gender?: $Enums.Gender | null
@@ -423,8 +423,8 @@ export type UserUncheckedCreateInput = {
 
 export type UserUpdateInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -442,8 +442,8 @@ export type UserUpdateInput = {
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -461,8 +461,8 @@ export type UserUncheckedUpdateInput = {
 export type UserCreateManyInput = {
   id?: number
   phone: string
-  firstName: string
-  lastName: string
+  firstName?: string | null
+  lastName?: string | null
   middleName?: string | null
   birthDate?: Date | string | null
   gender?: $Enums.Gender | null
@@ -478,8 +478,8 @@ export type UserCreateManyInput = {
 
 export type UserUpdateManyMutationInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -496,8 +496,8 @@ export type UserUpdateManyMutationInput = {
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -622,8 +622,8 @@ export type UserUpdateOneRequiredWithoutMembershipsNestedInput = {
 
 export type UserCreateWithoutMembershipsInput = {
   phone: string
-  firstName: string
-  lastName: string
+  firstName?: string | null
+  lastName?: string | null
   middleName?: string | null
   birthDate?: Date | string | null
   gender?: $Enums.Gender | null
@@ -640,8 +640,8 @@ export type UserCreateWithoutMembershipsInput = {
 export type UserUncheckedCreateWithoutMembershipsInput = {
   id?: number
   phone: string
-  firstName: string
-  lastName: string
+  firstName?: string | null
+  lastName?: string | null
   middleName?: string | null
   birthDate?: Date | string | null
   gender?: $Enums.Gender | null
@@ -673,8 +673,8 @@ export type UserUpdateToOneWithWhereWithoutMembershipsInput = {
 
 export type UserUpdateWithoutMembershipsInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -691,8 +691,8 @@ export type UserUpdateWithoutMembershipsInput = {
 export type UserUncheckedUpdateWithoutMembershipsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -827,8 +827,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     phone: string
-    firstName: string
-    lastName: string
+    firstName: string | null
+    lastName: string | null
     middleName: string | null
     birthDate: Date | null
     gender: $Enums.Gender | null
