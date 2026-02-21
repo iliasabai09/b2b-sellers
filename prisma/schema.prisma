@@ -8,6 +8,109 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id    Int    @id @default(autoincrement())
+  phone String @unique
+
+  firstName String
+  lastName  String
+
+  middleName String?
+  birthDate  DateTime?
+  gender     Gender?
+
+  photoUrl String?
+  about    String?
+
+  telegram  String?
+  whatsapp  String?
+  instagram String?
+  tiktok    String?
+
+  memberships CompanyMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Company {
+  id     Int           @id @default(autoincrement())
+  name   String
+  status CompanyStatus @default(PENDING)
+
+  logoUrl String?
+  address String?
+  phone   String?
+
+  telegram  String?
+  whatsapp  String?
+  instagram String?
+  tiktok    String?
+
+  workTime String?
+
+  cityId Int?
+  city   City? @relation(fields: [cityId], references: [id], onDelete: SetNull)
+
+  lat Decimal?
+  lng Decimal?
+
+  members CompanyMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([cityId])
+  @@map("companies")
+}
+
+model CompanyMember {
+  id        Int @id @default(autoincrement())
+  userId    Int
+  companyId Int
+
+  role   CompanyRole
+  status MemberStatus @default(ACTIVE)
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, companyId])
+  @@index([companyId])
+  @@map("company_members")
+}
+
+enum CompanyStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  BLOCKED
+}
+
+enum CompanyRole {
+  OWNER
+  ADMIN
+  MANAGER
+  VIEWER
+}
+
+enum MemberStatus {
+  ACTIVE
+  INVITED
+  DISABLED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
 model Region {
   id        Int      @id @default(autoincrement())
   name      String   @unique
@@ -19,14 +122,15 @@ model Region {
 }
 
 model City {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String
   regionId  Int
-  region    Region   @relation(fields: [regionId], references: [id], onDelete: Restrict)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  region    Region    @relation(fields: [regionId], references: [id], onDelete: Restrict)
+  companies Company[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
-  @@unique([name, regionId]) // чтобы не было дублей городов внутри одной области
+  @@unique([name, regionId])
   @@index([regionId])
   @@map("cities")
 }

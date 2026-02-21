@@ -1,0 +1,23 @@
+model Region {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  cities    City[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("regions")
+}
+
+model City {
+  id        Int       @id @default(autoincrement())
+  name      String
+  regionId  Int
+  region    Region    @relation(fields: [regionId], references: [id], onDelete: Restrict)
+  companies Company[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@unique([name, regionId])
+  @@index([regionId])
+  @@map("cities")
+}

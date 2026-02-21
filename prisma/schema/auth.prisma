@@ -1,0 +1,26 @@
+model User {
+  id    Int    @id @default(autoincrement())
+  phone String @unique
+
+  firstName String
+  lastName  String
+
+  middleName String?
+  birthDate  DateTime?
+  gender     Gender?
+
+  photoUrl String?
+  about    String?
+
+  telegram  String?
+  whatsapp  String?
+  instagram String?
+  tiktok    String?
+
+  memberships CompanyMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}

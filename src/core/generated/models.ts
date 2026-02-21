@@ -8,6 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/User.js'
+export type * from './models/Company.js'
+export type * from './models/CompanyMember.js'
 export type * from './models/Region.js'
 export type * from './models/City.js'
 export type * from './commonInputTypes.js'
