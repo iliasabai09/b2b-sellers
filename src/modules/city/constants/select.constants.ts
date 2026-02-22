@@ -1,6 +1,6 @@
-import { Prisma } from '@prisma/client';
+import { CityFindManyArgs } from '@core/generated/models/City';
 
-export const CITY_SELECT = Prisma.validator<Prisma.CityFindFirstArgs>()({
+export const CITY_SELECT: CityFindManyArgs = {
   select: {
     id: true,
     name: true,
@@ -9,4 +9,4 @@ export const CITY_SELECT = Prisma.validator<Prisma.CityFindFirstArgs>()({
   orderBy: {
     name: 'asc',
   },
-});
+};
