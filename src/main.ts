@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  console.log('PORT value:', process.env);
   const config = new DocumentBuilder()
     .setTitle('B2B Suppliers API')
     .setDescription('API documentation for Suppliers platform')
