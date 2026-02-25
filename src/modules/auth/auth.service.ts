@@ -35,14 +35,15 @@ export class AuthService {
       create: { phone },
     });
 
-    // const memberships = await this.prisma.companyMember.findMany({
-    //   where: { userId: user.id },
-    //   include: { company: true },
-    //   orderBy: { id: 'asc' },
-    // });
+    const memberships = await this.prisma.companyMember.findMany({
+      where: { userId: user.id },
+      include: { company: true },
+      orderBy: { id: 'asc' },
+    });
 
     const payload = {
       sub: user.id,
+      companyId: memberships.length ? memberships[0].companyId : null,
     };
 
     const accessToken = await this.jwt.signAsync(payload, { expiresIn: '15m' });
