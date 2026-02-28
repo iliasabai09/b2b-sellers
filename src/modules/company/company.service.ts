@@ -11,6 +11,7 @@ import { ROLE } from '@modules/auth/enums/role.enum';
 import { UpdateCompanyDto } from '@modules/company/dto/requests/update-company.dto';
 import { AddCompanyMemberDto } from '@modules/company/dto/requests/add-company-member.dto';
 import { UpdateMemberRoleDto } from '@modules/company/dto/requests/update-member-role.dto';
+import { CompanyEmployeeDto } from '@modules/company/dto/res/company-employee.dto';
 
 @Injectable()
 export class CompanyService {
@@ -212,5 +213,37 @@ export class CompanyService {
         role: true,
       },
     });
+  }
+
+  async getCompanyMembers(companyId: number): Promise<CompanyEmployeeDto[]> {
+    const exists = await this.prismaService.company.findUnique({
+      where: { id: companyId },
+      select: { id: true },
+    });
+    if (!exists) throw new NotFoundException('Company not found');
+
+    const members = await this.prismaService.companyMember.findMany({
+      where: { companyId },
+      select: {
+        role: true,
+        user: {
+          select: {
+            id: true,
+            phone: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'asc' }, // если есть createdAt у CompanyMember
+    });
+
+    return members.map((m) => ({
+      role: m.role,
+      userId: m.user.id,
+      phone: m.user.phone,
+      firstName: m.user.firstName ?? null,
+      lastName: m.user.lastName ?? null,
+    }));
   }
 }

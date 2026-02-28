@@ -25,6 +25,8 @@ import {
   ADD_MEMBER_RES,
   CREATE_COMPANY,
   CREATE_COMPANY_RES,
+  GET_COMPANY_MEMBERS,
+  GET_COMPANY_MEMBERS_RES,
   GET_MY_COMPANIES,
   GET_MY_COMPANIES_RES,
   REMOVE_MEMBER,
@@ -46,6 +48,7 @@ import { MyCompanyResDto } from '@modules/company/dto/res/my-companies-res.dto';
 import { RemoveCompanyMemberResDto } from '@modules/company/dto/res/remove-company-member-res.dto';
 import { UpdateMemberRoleDto } from '@modules/company/dto/requests/update-member-role.dto';
 import { UpdateMemberRoleResDto } from '@modules/company/dto/res/update-member-role-res.dto';
+import { CompanyEmployeeDto } from '@modules/company/dto/res/company-employee.dto';
 
 @Controller('company')
 @ApiBearerAuth('access-token')
@@ -103,9 +106,17 @@ export class CompanyController {
   @Put('member-role')
   @ApiOperation(UPDATE_ROLE)
   @ApiResponse({ ...UPDATE_ROLE_RES, type: UpdateMemberRoleResDto })
-  @Roles(ROLE.OWNER) // если хочешь разрешить и ADMIN: @Roles(ROLE.OWNER, ROLE.ADMIN)
+  @Roles(ROLE.OWNER)
   updateRole(@Req() req: UserReq, @Body() dto: UpdateMemberRoleDto) {
     const { companyId, sub } = req.user;
     return this.companyService.updateMemberRole(sub, companyId, dto);
+  }
+
+  @Get('members')
+  @ApiOperation(GET_COMPANY_MEMBERS)
+  @ApiResponse({ ...GET_COMPANY_MEMBERS_RES, type: [CompanyEmployeeDto] })
+  getCompanyMembers(@Req() req: UserReq) {
+    const { companyId } = req.user;
+    return this.companyService.getCompanyMembers(companyId);
   }
 }

@@ -61,3 +61,14 @@ export const UPDATE_ROLE_RES = {
   status: 200,
   description: 'Роль участника успешно обновлена',
 };
+
+export const GET_COMPANY_MEMBERS = {
+  summary: 'Получение сотрудников компании',
+  description:
+    'Метод возвращает список участников (сотрудников) текущей компании. Доступен авторизованным пользователям. companyId берётся из JWT. Возвращает: роль участника (role), имя и фамилию (firstName, lastName), id пользователя (userId), номер телефона (phone).',
+};
+
+export const GET_COMPANY_MEMBERS_RES = {
+  status: 200,
+  description: 'Список сотрудников компании успешно получен',
+};
