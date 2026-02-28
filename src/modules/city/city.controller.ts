@@ -13,10 +13,11 @@ import {
   FIND_ALL_RES,
 } from '@modules/city/constants/swagger.constants';
 import { CityDto } from '@modules/city/dto/City.dto';
-import { Roles } from '@modules/auth/decorators/roles.decorator';
-import { ROLE } from '@modules/auth/enums/role.enum';
-import { RolesGuard } from '@modules/auth/guards/roles.guard';
 import type { UserReq } from '@shared/types/req-user.type';
+import { ROLE } from '@modules/auth/enums/role.enum';
+import { AuthGuard } from '@core/guards/jwt-auth.guard';
+import { RolesGuard } from '@core/guards/roles.guard';
+import { Roles } from '@core/decorators/roles.decorator';
 
 @ApiTags('Города')
 @Controller('city')
@@ -33,7 +34,7 @@ export class CityController {
 
   @Get('testAuth')
   @Roles(ROLE.OWNER)
-  @UseGuards(RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   test(@Req() req: UserReq) {
     console.log('req', req.user);
     return 'hajsdajklhflghsdajlfhjgldasgfikj';

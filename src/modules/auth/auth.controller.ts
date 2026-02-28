@@ -10,11 +10,11 @@ import {
   VERIFY_OTP_RES,
 } from '@modules/auth/constants/swagger.constants';
 import { OtpVerifyResponseDto } from '@modules/auth/dto/response/otp-verify.response.dto';
-import { AuthGuard } from '@modules/auth/guards/jwt-auth.guard';
-import { Roles } from '@modules/auth/decorators/roles.decorator';
 import { ROLE } from '@modules/auth/enums/role.enum';
-import { RolesGuard } from '@modules/auth/guards/roles.guard';
 import { type UserReq } from '@shared/types/req-user.type';
+import { AuthGuard } from '@core/guards/jwt-auth.guard';
+import { RolesGuard } from '@core/guards/roles.guard';
+import { Roles } from '@core/decorators/roles.decorator';
 
 @Controller('auth')
 export class AuthController {

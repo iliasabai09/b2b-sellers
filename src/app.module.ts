@@ -6,6 +6,7 @@ import { RegionsModule } from '@modules/regions/regions.module';
 import { CityModule } from '@modules/city/city.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { AppJwtModule } from '@core/modules/jwt/jwt.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     RegionsModule,
     CityModule,
     AuthModule,
+    AppJwtModule,
   ],
   controllers: [AppController],
   providers: [AppService],
