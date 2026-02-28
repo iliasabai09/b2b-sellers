@@ -10,6 +10,7 @@ import { CreateCompanyDto } from '@modules/company/dto/requests/create-company.d
 import { ROLE } from '@modules/auth/enums/role.enum';
 import { UpdateCompanyDto } from '@modules/company/dto/requests/update-company.dto';
 import { AddCompanyMemberDto } from '@modules/company/dto/requests/add-company-member.dto';
+import { UpdateMemberRoleDto } from '@modules/company/dto/requests/update-member-role.dto';
 
 @Injectable()
 export class CompanyService {
@@ -178,5 +179,38 @@ export class CompanyService {
     });
 
     return { success: true };
+  }
+
+  async updateMemberRole(
+    ownerId: number,
+    companyId: number,
+    dto: UpdateMemberRoleDto,
+  ) {
+    if (dto.role === ROLE.OWNER) {
+      throw new BadRequestException('Use transfer ownership endpoint');
+    }
+
+    if (ownerId === dto.userId) {
+      throw new ForbiddenException('Cannot change your own role');
+    }
+
+    const member = await this.prismaService.companyMember.findUnique({
+      where: { userId_companyId: { companyId, userId: dto.userId } },
+      select: { role: true, userId: true, companyId: true },
+    });
+
+    if (!member) throw new NotFoundException('Member not found');
+
+    if ((member.role as ROLE) === ROLE.OWNER) {
+      throw new ForbiddenException('Cannot change OWNER role');
+    }
+
+    return this.prismaService.companyMember.update({
+      where: { userId_companyId: { companyId, userId: dto.userId } },
+      data: { role: dto.role },
+      select: {
+        role: true,
+      },
+    });
   }
 }

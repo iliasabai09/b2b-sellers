@@ -31,6 +31,8 @@ import {
   REMOVE_MEMBER_RES,
   UPDATE_COMPANY,
   UPDATE_COMPANY_RES,
+  UPDATE_ROLE,
+  UPDATE_ROLE_RES,
 } from '@modules/company/constants/swagger.constants';
 import { Roles } from '@core/decorators/roles.decorator';
 import { ROLE } from '@modules/auth/enums/role.enum';
@@ -42,6 +44,7 @@ import { AddCompanyMemberDto } from '@modules/company/dto/requests/add-company-m
 import { AddCompanyMemberResDto } from '@modules/company/dto/res/add-company-member-res.dto';
 import { MyCompanyResDto } from '@modules/company/dto/res/my-companies-res.dto';
 import { RemoveCompanyMemberResDto } from '@modules/company/dto/res/remove-company-member-res.dto';
+import { UpdateMemberRoleDto } from '@modules/company/dto/requests/update-member-role.dto';
 
 @Controller('company')
 @ApiBearerAuth('access-token')
@@ -94,5 +97,14 @@ export class CompanyController {
   ) {
     const { sub, companyId } = req.user;
     return this.companyService.removeMember(sub, companyId, userId);
+  }
+
+  @Put('member-role')
+  @ApiOperation(UPDATE_ROLE)
+  @ApiResponse({ ...UPDATE_ROLE_RES, type: RemoveCompanyMemberResDto })
+  @Roles(ROLE.OWNER) // если хочешь разрешить и ADMIN: @Roles(ROLE.OWNER, ROLE.ADMIN)
+  updateRole(@Req() req: UserReq, @Body() dto: UpdateMemberRoleDto) {
+    const { companyId, sub } = req.user;
+    return this.companyService.updateMemberRole(sub, companyId, dto);
   }
 }
