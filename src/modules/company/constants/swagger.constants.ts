@@ -83,3 +83,15 @@ export const GET_CURRENT_COMPANY_RES = {
   status: 200,
   description: 'Данные текущей компании успешно получены',
 };
+
+export const SET_CURRENT_COMPANY = {
+  summary: 'Выбор текущей компании',
+  description:
+    'Метод устанавливает текущую компанию для авторизованного пользователя. Проверяет, что пользователь является участником компании (CompanyMember). После выбора генерирует новый accessToken с companyId в payload и refreshToken (только с sub), как при входе, но с новым идентификатором компании.',
+};
+
+export const SET_CURRENT_COMPANY_RES = {
+  status: 200,
+  description:
+    'Текущая компания успешно установлена. Возвращены новые accessToken и refreshToken',
+};

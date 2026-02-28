@@ -33,6 +33,8 @@ import {
   GET_MY_COMPANIES_RES,
   REMOVE_MEMBER,
   REMOVE_MEMBER_RES,
+  SET_CURRENT_COMPANY,
+  SET_CURRENT_COMPANY_RES,
   UPDATE_COMPANY,
   UPDATE_COMPANY_RES,
   UPDATE_ROLE,
@@ -52,6 +54,8 @@ import { UpdateMemberRoleDto } from '@modules/company/dto/requests/update-member
 import { UpdateMemberRoleResDto } from '@modules/company/dto/res/update-member-role-res.dto';
 import { CompanyEmployeeDto } from '@modules/company/dto/res/company-employee.dto';
 import { CurrentCompanyResDto } from '@modules/company/dto/res/current-company-res.dto';
+import { SetCurrentCompanyDto } from '@modules/company/dto/requests/set-current-company.dto';
+import { SetCurrentCompanyResDto } from '@modules/company/dto/res/set-current-company-res.dto';
 
 @Controller('company')
 @ApiBearerAuth('access-token')
@@ -82,6 +86,13 @@ export class CompanyController {
   getCurrentCompany(@Req() req: UserReq) {
     const { companyId } = req.user;
     return this.companyService.getCurrentCompany(companyId);
+  }
+
+  @Post('set-current')
+  @ApiOperation(SET_CURRENT_COMPANY)
+  @ApiResponse({ ...SET_CURRENT_COMPANY_RES, type: SetCurrentCompanyResDto })
+  setCurrentCompany(@Req() req: UserReq, @Body() dto: SetCurrentCompanyDto) {
+    return this.companyService.setCurrentCompany(req.user.sub, dto.companyId);
   }
 
   @Get('my-companies')

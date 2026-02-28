@@ -51,8 +51,6 @@ export class AuthService {
       companyId,
     };
 
-    console.log('payload', payload);
-
     const accessToken = await this.jwt.signAsync(payload, { expiresIn: '15m' });
     const refreshToken = await this.jwt.signAsync(
       { sub: user.id },

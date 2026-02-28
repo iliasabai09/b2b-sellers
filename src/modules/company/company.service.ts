@@ -12,10 +12,14 @@ import { UpdateCompanyDto } from '@modules/company/dto/requests/update-company.d
 import { AddCompanyMemberDto } from '@modules/company/dto/requests/add-company-member.dto';
 import { UpdateMemberRoleDto } from '@modules/company/dto/requests/update-member-role.dto';
 import { CompanyEmployeeDto } from '@modules/company/dto/res/company-employee.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class CompanyService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private jwt: JwtService,
+  ) {}
 
   async createCompany(userId: number, dto: CreateCompanyDto) {
     return this.prismaService.company.create({
@@ -147,6 +151,38 @@ export class CompanyService {
     }
 
     return company;
+  }
+
+  async setCurrentCompany(userId: number, companyId: number) {
+    const member = await this.prismaService.companyMember.findFirst({
+      where: {
+        userId,
+        companyId,
+      },
+    });
+
+    if (!member) {
+      throw new ForbiddenException('You are not member of this company');
+    }
+
+    const payload = {
+      sub: userId,
+      companyId,
+    };
+
+    const accessToken = await this.jwt.signAsync(payload, {
+      expiresIn: '15m',
+    });
+
+    const refreshToken = await this.jwt.signAsync(
+      { sub: userId },
+      { expiresIn: '30d' },
+    );
+
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 
   async getMyCompanies(userId: number, companyId: number) {
