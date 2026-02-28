@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Put, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -14,6 +22,8 @@ import {
   ADD_MEMBER_RES,
   CREATE_COMPANY,
   CREATE_COMPANY_RES,
+  GET_MY_COMPANIES,
+  GET_MY_COMPANIES_RES,
   UPDATE_COMPANY,
   UPDATE_COMPANY_RES,
 } from '@modules/company/constants/swagger.constants';
@@ -25,6 +35,7 @@ import { CreateCompanyResDto } from '@modules/company/dto/res/create-company-res
 import { UpdateCompanyResDto } from '@modules/company/dto/res/update-company-res.dto';
 import { AddCompanyMemberDto } from '@modules/company/dto/requests/add-company-member.dto';
 import { AddCompanyMemberResDto } from '@modules/company/dto/res/add-company-member-res.dto';
+import { MyCompanyResDto } from '@modules/company/dto/res/my-companies-res.dto';
 
 @Controller('company')
 @ApiBearerAuth('access-token')
@@ -56,5 +67,13 @@ export class CompanyController {
   @Roles(ROLE.OWNER)
   addMember(@Req() { user }: UserReq, @Body() dto: AddCompanyMemberDto) {
     return this.companyService.addMember(user, dto);
+  }
+
+  @Get('my-companies')
+  @ApiOperation(GET_MY_COMPANIES)
+  @ApiResponse({ ...GET_MY_COMPANIES_RES, type: [MyCompanyResDto] })
+  async getMyCompanies(@Req() req: UserReq) {
+    const { sub, companyId } = req.user;
+    return this.companyService.getMyCompanies(sub, companyId);
   }
 }

@@ -105,4 +105,31 @@ export class CompanyService {
       },
     });
   }
+
+  async getMyCompanies(userId: number, companyId: number) {
+    const companies = await this.prismaService.company.findMany({
+      where: {
+        members: {
+          some: {
+            userId,
+          },
+        },
+      },
+      select: {
+        name: true,
+        address: true,
+        members: {
+          where: { userId },
+          select: { role: true, companyId: true },
+        },
+      },
+    });
+
+    return companies.map((c) => ({
+      name: c.name,
+      address: c.address,
+      role: c.members[0]?.role ?? null,
+      isActive: companyId === c.members[0]?.companyId,
+    }));
+  }
 }

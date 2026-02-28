@@ -28,3 +28,14 @@ export const ADD_MEMBER_RES = {
   status: 201,
   description: 'Возвращает созданного участника компании',
 };
+
+export const GET_MY_COMPANIES = {
+  summary: 'Получение компаний пользователя',
+  description:
+    'Метод возвращает список компаний, в которых состоит пользователь (userId берётся из JWT). Для каждой компании возвращаются name, address, role пользователя и флаг isActive.',
+};
+
+export const GET_MY_COMPANIES_RES = {
+  status: 200,
+  description: 'Возвращает список компаний пользователя и активную компанию',
+};
