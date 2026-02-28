@@ -72,3 +72,14 @@ export const GET_COMPANY_MEMBERS_RES = {
   status: 200,
   description: 'Список сотрудников компании успешно получен',
 };
+
+export const GET_CURRENT_COMPANY = {
+  summary: 'Получение текущей компании',
+  description:
+    'Метод возвращает данные текущей компании авторизованного пользователя. companyId берётся из JWT токена. Возвращает основную информацию о компании: id, name, phone, logoUrl, address, социальные сети (telegram, whatsapp, instagram, tiktok), график работы (workTime), координаты (lat, lng).',
+};
+
+export const GET_CURRENT_COMPANY_RES = {
+  status: 200,
+  description: 'Данные текущей компании успешно получены',
+};

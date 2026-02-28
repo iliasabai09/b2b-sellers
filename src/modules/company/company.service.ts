@@ -108,6 +108,47 @@ export class CompanyService {
     });
   }
 
+  async getCurrentCompany(companyId: number) {
+    const company = await this.prismaService.company.findUnique({
+      where: { id: companyId },
+      select: {
+        id: true,
+        phone: true,
+        name: true,
+        logoUrl: true,
+        address: true,
+        telegram: true,
+        whatsapp: true,
+        instagram: true,
+        tiktok: true,
+        workTime: true,
+        lat: true,
+        lng: true,
+      },
+      // include: {
+      //   city: true,
+      //   members: {
+      //     include: {
+      //       user: {
+      //         select: {
+      //           id: true,
+      //           phone: true,
+      //           firstName: true,
+      //           lastName: true,
+      //         },
+      //       },
+      //     },
+      //   },
+      // },
+    });
+
+    if (!company) {
+      throw new NotFoundException('Company not found');
+    }
+
+    return company;
+  }
+
   async getMyCompanies(userId: number, companyId: number) {
     const companies = await this.prismaService.company.findMany({
       where: {

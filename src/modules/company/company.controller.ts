@@ -27,6 +27,8 @@ import {
   CREATE_COMPANY_RES,
   GET_COMPANY_MEMBERS,
   GET_COMPANY_MEMBERS_RES,
+  GET_CURRENT_COMPANY,
+  GET_CURRENT_COMPANY_RES,
   GET_MY_COMPANIES,
   GET_MY_COMPANIES_RES,
   REMOVE_MEMBER,
@@ -49,6 +51,7 @@ import { RemoveCompanyMemberResDto } from '@modules/company/dto/res/remove-compa
 import { UpdateMemberRoleDto } from '@modules/company/dto/requests/update-member-role.dto';
 import { UpdateMemberRoleResDto } from '@modules/company/dto/res/update-member-role-res.dto';
 import { CompanyEmployeeDto } from '@modules/company/dto/res/company-employee.dto';
+import { CurrentCompanyResDto } from '@modules/company/dto/res/current-company-res.dto';
 
 @Controller('company')
 @ApiBearerAuth('access-token')
@@ -71,6 +74,14 @@ export class CompanyController {
   @UseGuards(RolesGuard)
   updateCompany(@Body() dto: UpdateCompanyDto, @Req() req: UserReq) {
     return this.companyService.updateCompany(+req.user.companyId, dto);
+  }
+
+  @Get('current')
+  @ApiOperation(GET_CURRENT_COMPANY)
+  @ApiResponse({ ...GET_CURRENT_COMPANY_RES, type: CurrentCompanyResDto })
+  getCurrentCompany(@Req() req: UserReq) {
+    const { companyId } = req.user;
+    return this.companyService.getCurrentCompany(companyId);
   }
 
   @Get('my-companies')
