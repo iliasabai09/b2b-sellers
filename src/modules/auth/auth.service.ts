@@ -41,9 +41,14 @@ export class AuthService {
       orderBy: { id: 'asc' },
     });
 
+    const companyId = memberships.length ? memberships[0].companyId : null;
+    const role = memberships[0].role;
+    // const company = await this.prisma.company.findUnique({
+    //   where: { id: companyId || 0 },
+    // });
     const payload = {
       sub: user.id,
-      companyId: memberships.length ? memberships[0].companyId : null,
+      companyId,
     };
 
     const accessToken = await this.jwt.signAsync(payload, { expiresIn: '15m' });
@@ -55,13 +60,9 @@ export class AuthService {
     return {
       accessToken,
       refreshToken,
-      // user: { id: user.id, phone: user.phone },
-      // companies: memberships.map((m) => ({
-      //   companyId: m.companyId,
-      //   name: m.company.name,
-      //   role: m.role,
-      //   isSupplierVerified: m.company.status === 'APPROVED',
-      // })),
+      role,
+      // user,
+      // company: { ...company, role },
     };
   }
 }

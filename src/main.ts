@@ -24,7 +24,15 @@ async function bootstrap() {
     .setTitle('B2B Suppliers API')
     .setDescription('API documentation for Suppliers platform')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        in: 'header',
+      },
+      'access-token', // имя схемы
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
