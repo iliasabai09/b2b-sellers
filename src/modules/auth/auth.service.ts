@@ -42,7 +42,7 @@ export class AuthService {
     });
 
     const companyId = memberships.length ? memberships[0].companyId : null;
-    const role = memberships[0].role;
+    const role = memberships.length ? memberships[0].role : null;
     // const company = await this.prisma.company.findUnique({
     //   where: { id: companyId || 0 },
     // });
@@ -50,6 +50,8 @@ export class AuthService {
       sub: user.id,
       companyId,
     };
+
+    console.log('payload', payload);
 
     const accessToken = await this.jwt.signAsync(payload, { expiresIn: '15m' });
     const refreshToken = await this.jwt.signAsync(
