@@ -1,15 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsInt } from 'class-validator';
+import { IsEnum } from 'class-validator';
 import { ROLE } from '@modules/auth/enums/role.enum';
 
-export class UpdateMemberRoleDto {
-  @ApiProperty({
-    example: 12,
-    description: 'ID пользователя, которому изменяется роль',
-  })
-  @IsInt()
-  userId!: number;
-
+export class UpdateMemberRoleResDto {
   @ApiProperty({
     example: ROLE.ADMIN,
     enum: ROLE,

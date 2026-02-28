@@ -45,6 +45,7 @@ import { AddCompanyMemberResDto } from '@modules/company/dto/res/add-company-mem
 import { MyCompanyResDto } from '@modules/company/dto/res/my-companies-res.dto';
 import { RemoveCompanyMemberResDto } from '@modules/company/dto/res/remove-company-member-res.dto';
 import { UpdateMemberRoleDto } from '@modules/company/dto/requests/update-member-role.dto';
+import { UpdateMemberRoleResDto } from '@modules/company/dto/res/update-member-role-res.dto';
 
 @Controller('company')
 @ApiBearerAuth('access-token')
@@ -101,7 +102,7 @@ export class CompanyController {
 
   @Put('member-role')
   @ApiOperation(UPDATE_ROLE)
-  @ApiResponse({ ...UPDATE_ROLE_RES, type: RemoveCompanyMemberResDto })
+  @ApiResponse({ ...UPDATE_ROLE_RES, type: UpdateMemberRoleResDto })
   @Roles(ROLE.OWNER) // если хочешь разрешить и ADMIN: @Roles(ROLE.OWNER, ROLE.ADMIN)
   updateRole(@Req() req: UserReq, @Body() dto: UpdateMemberRoleDto) {
     const { companyId, sub } = req.user;
