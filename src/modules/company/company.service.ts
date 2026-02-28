@@ -132,4 +132,51 @@ export class CompanyService {
       isActive: companyId === c.members[0]?.companyId,
     }));
   }
+
+  async removeMember(
+    ownerId: number,
+    ownerCompanyId: number,
+    targetUserId: number,
+  ) {
+    // 1️⃣ Найти компанию, где этот owner OWNER
+    const ownerMembership = await this.prismaService.companyMember.findFirst({
+      where: {
+        userId: ownerId,
+        companyId: ownerCompanyId,
+        role: 'OWNER',
+      },
+    });
+
+    if (!ownerMembership) {
+      throw new ForbiddenException('Only OWNER can remove members');
+    }
+
+    const companyId = ownerMembership.companyId;
+
+    // 2️⃣ Проверяем что удаляемый пользователь в этой же компании
+    const targetMembership = await this.prismaService.companyMember.findFirst({
+      where: {
+        userId: targetUserId,
+        companyId,
+      },
+    });
+
+    if (!targetMembership) {
+      throw new NotFoundException('User is not a member of this company');
+    }
+
+    // 3️⃣ Нельзя удалить OWNER
+    if (targetMembership.role === 'OWNER') {
+      throw new BadRequestException('Cannot remove OWNER');
+    }
+
+    // 4️⃣ Удаляем
+    await this.prismaService.companyMember.delete({
+      where: {
+        id: targetMembership.id,
+      },
+    });
+
+    return { success: true };
+  }
 }

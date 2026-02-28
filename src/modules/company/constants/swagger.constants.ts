@@ -39,3 +39,14 @@ export const GET_MY_COMPANIES_RES = {
   status: 200,
   description: 'Возвращает список компаний пользователя и активную компанию',
 };
+
+export const REMOVE_MEMBER = {
+  summary: 'Удаление участника из компании',
+  description:
+    'Метод удаляет участника из компании. Доступен только пользователю с ролью OWNER в текущей компании. userId владельца берётся из JWT, удаляемый участник передаётся в параметре :userId. Нельзя удалить владельца (OWNER).',
+};
+
+export const REMOVE_MEMBER_RES = {
+  status: 200,
+  description: 'Участник успешно удалён из компании',
+};

@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
+  ParseIntPipe,
   Post,
   Put,
   Req,
@@ -24,6 +27,8 @@ import {
   CREATE_COMPANY_RES,
   GET_MY_COMPANIES,
   GET_MY_COMPANIES_RES,
+  REMOVE_MEMBER,
+  REMOVE_MEMBER_RES,
   UPDATE_COMPANY,
   UPDATE_COMPANY_RES,
 } from '@modules/company/constants/swagger.constants';
@@ -36,6 +41,7 @@ import { UpdateCompanyResDto } from '@modules/company/dto/res/update-company-res
 import { AddCompanyMemberDto } from '@modules/company/dto/requests/add-company-member.dto';
 import { AddCompanyMemberResDto } from '@modules/company/dto/res/add-company-member-res.dto';
 import { MyCompanyResDto } from '@modules/company/dto/res/my-companies-res.dto';
+import { RemoveCompanyMemberResDto } from '@modules/company/dto/res/remove-company-member-res.dto';
 
 @Controller('company')
 @ApiBearerAuth('access-token')
@@ -72,8 +78,21 @@ export class CompanyController {
   @Get('my-companies')
   @ApiOperation(GET_MY_COMPANIES)
   @ApiResponse({ ...GET_MY_COMPANIES_RES, type: [MyCompanyResDto] })
-  async getMyCompanies(@Req() req: UserReq) {
+  getMyCompanies(@Req() req: UserReq) {
     const { sub, companyId } = req.user;
     return this.companyService.getMyCompanies(sub, companyId);
+  }
+
+  @UseGuards(RolesGuard)
+  @ApiOperation(REMOVE_MEMBER)
+  @ApiResponse({ ...REMOVE_MEMBER_RES, type: RemoveCompanyMemberResDto })
+  @Roles(ROLE.OWNER)
+  @Delete('members/:userId')
+  removeMember(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Req() req: UserReq,
+  ) {
+    const { sub, companyId } = req.user;
+    return this.companyService.removeMember(sub, companyId, userId);
   }
 }
