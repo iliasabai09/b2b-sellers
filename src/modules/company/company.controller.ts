@@ -73,21 +73,21 @@ export class CompanyController {
     return this.companyService.updateCompany(+req.user.companyId, dto);
   }
 
-  @Post('add-member')
-  @ApiOperation(ADD_MEMBER)
-  @ApiResponse({ ...ADD_MEMBER_RES, type: AddCompanyMemberResDto })
-  @UseGuards(RolesGuard)
-  @Roles(ROLE.OWNER)
-  addMember(@Req() { user }: UserReq, @Body() dto: AddCompanyMemberDto) {
-    return this.companyService.addMember(user, dto);
-  }
-
   @Get('my-companies')
   @ApiOperation(GET_MY_COMPANIES)
   @ApiResponse({ ...GET_MY_COMPANIES_RES, type: [MyCompanyResDto] })
   getMyCompanies(@Req() req: UserReq) {
     const { sub, companyId } = req.user;
     return this.companyService.getMyCompanies(sub, companyId);
+  }
+
+  @Post('members/add-member')
+  @ApiOperation(ADD_MEMBER)
+  @ApiResponse({ ...ADD_MEMBER_RES, type: AddCompanyMemberResDto })
+  @UseGuards(RolesGuard)
+  @Roles(ROLE.OWNER)
+  addMember(@Req() { user }: UserReq, @Body() dto: AddCompanyMemberDto) {
+    return this.companyService.addMember(user, dto);
   }
 
   @UseGuards(RolesGuard)
@@ -103,7 +103,7 @@ export class CompanyController {
     return this.companyService.removeMember(sub, companyId, userId);
   }
 
-  @Put('member-role')
+  @Put('members/update-role')
   @ApiOperation(UPDATE_ROLE)
   @ApiResponse({ ...UPDATE_ROLE_RES, type: UpdateMemberRoleResDto })
   @Roles(ROLE.OWNER)
