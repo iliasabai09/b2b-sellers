@@ -112,7 +112,7 @@ export class CompanyService {
     });
   }
 
-  async getCurrentCompany(companyId: number) {
+  async getCurrentCompany(companyId: number, userId: number) {
     const company = await this.prismaService.company.findUnique({
       where: { id: companyId },
       select: {
@@ -128,29 +128,26 @@ export class CompanyService {
         workTime: true,
         lat: true,
         lng: true,
+        members: {
+          where: {
+            userId: userId,
+          },
+          select: {
+            role: true,
+          },
+        },
       },
-      // include: {
-      //   city: true,
-      //   members: {
-      //     include: {
-      //       user: {
-      //         select: {
-      //           id: true,
-      //           phone: true,
-      //           firstName: true,
-      //           lastName: true,
-      //         },
-      //       },
-      //     },
-      //   },
-      // },
     });
 
     if (!company) {
       throw new NotFoundException('Company not found');
     }
-
-    return company;
+    const role = company.members[0]?.role ?? null;
+    return {
+      ...company,
+      role,
+      members: undefined, // убираем лишнее
+    };
   }
 
   async setCurrentCompany(userId: number, companyId: number) {

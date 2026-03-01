@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ROLE } from '@modules/auth/enums/role.enum';
 
 export class CurrentCompanyResDto {
   @ApiProperty({ example: 1 })
@@ -53,4 +54,10 @@ export class CurrentCompanyResDto {
     type: String,
   })
   lng!: string | null;
+
+  @ApiProperty({
+    example: ROLE.OWNER,
+    nullable: true,
+  })
+  role!: ROLE;
 }

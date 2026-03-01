@@ -84,8 +84,8 @@ export class CompanyController {
   @ApiOperation(GET_CURRENT_COMPANY)
   @ApiResponse({ ...GET_CURRENT_COMPANY_RES, type: CurrentCompanyResDto })
   getCurrentCompany(@Req() req: UserReq) {
-    const { companyId } = req.user;
-    return this.companyService.getCurrentCompany(companyId);
+    const { companyId, sub } = req.user;
+    return this.companyService.getCurrentCompany(companyId, sub);
   }
 
   @Post('set-current')
