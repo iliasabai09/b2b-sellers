@@ -1,5 +1,20 @@
-import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Req,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { AuthGuard } from '@core/guards/jwt-auth.guard';
 import {
   GET_CURRENT_USER,
@@ -12,6 +27,8 @@ import { UserService } from '@modules/user/user.service';
 import { CurrentUserResDto } from '@modules/user/dto/res/current-user.res.dto';
 import { UserResDto } from '@modules/user/dto/res/user.res.dto';
 import { UpdateUserDto } from '@modules/user/dto/requests/update-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UPDATE_USER_SCHEMA } from '@modules/user/dto/schema/update-user.schema';
 
 @Controller('user')
 @ApiBearerAuth('access-token')
@@ -30,7 +47,14 @@ export class UserController {
   @Patch('me')
   @ApiOperation(UPDATE_ME)
   @ApiResponse({ ...UPDATE_ME_RES, type: UserResDto })
-  updateMe(@Req() req: UserReq, @Body() dto: UpdateUserDto) {
-    return this.userService.updateMe(req.user.sub, dto);
+  @UseInterceptors(FileInterceptor('photo'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody(UPDATE_USER_SCHEMA)
+  updateMe(
+    @Req() req: UserReq,
+    @Body() dto: UpdateUserDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    return this.userService.updateMe(req.user.sub, dto, file);
   }
 }
