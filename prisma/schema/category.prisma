@@ -1,0 +1,22 @@
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  slug      String
+  level     Int      // 1/2/3 (валидацией)
+  parentId  Int?
+  parent    Category?  @relation("CategoryToChildren", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryToChildren")
+
+  iconUrl   String?
+  imageUrl  String?     // картинка категории
+  sort      Int      @default(0)
+  isActive  Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([parentId, slug])
+  @@index([parentId])
+  @@index([level])
+  @@map("categories")
+}
