@@ -23,3 +23,14 @@ enum Gender {
   FEMALE
   OTHER
 }
+
+enum ProductOptionType {
+  COLOR
+  SIZE
+  MATERIAL
+  VOLUME
+  WEIGHT
+  LENGTH
+  WIDTH
+  HEIGHT
+}

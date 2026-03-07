@@ -134,6 +134,17 @@ enum Gender {
   OTHER
 }
 
+enum ProductOptionType {
+  COLOR
+  SIZE
+  MATERIAL
+  VOLUME
+  WEIGHT
+  LENGTH
+  WIDTH
+  HEIGHT
+}
+
 model Region {
   id        Int      @id @default(autoincrement())
   name      String   @unique
@@ -156,4 +167,15 @@ model City {
   @@unique([name, regionId])
   @@index([regionId])
   @@map("cities")
+}
+
+model Option {
+  id        Int               @id @default(autoincrement())
+  type      ProductOptionType @unique
+  name      String
+
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@map("options")
 }

@@ -67,3 +67,8 @@ export type Region = Prisma.RegionModel
  * 
  */
 export type City = Prisma.CityModel
+/**
+ * Model Option
+ * 
+ */
+export type Option = Prisma.OptionModel

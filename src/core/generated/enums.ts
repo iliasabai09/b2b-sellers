@@ -45,3 +45,17 @@ export const Gender = {
 } as const
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const ProductOptionType = {
+  COLOR: 'COLOR',
+  SIZE: 'SIZE',
+  MATERIAL: 'MATERIAL',
+  VOLUME: 'VOLUME',
+  WEIGHT: 'WEIGHT',
+  LENGTH: 'LENGTH',
+  WIDTH: 'WIDTH',
+  HEIGHT: 'HEIGHT'
+} as const
+
+export type ProductOptionType = (typeof ProductOptionType)[keyof typeof ProductOptionType]
