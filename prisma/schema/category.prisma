@@ -11,6 +11,7 @@ model Category {
   imageUrl  String?     // картинка категории
   sort      Int      @default(0)
   isActive  Boolean  @default(true)
+  products Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

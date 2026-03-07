@@ -34,3 +34,17 @@ enum ProductOptionType {
   WIDTH
   HEIGHT
 }
+
+enum SpecType {
+  TEXT
+  NUMBER
+  BOOLEAN
+}
+
+enum Unit {
+  PCS
+  BOX
+  PACK
+  KG
+  M
+}

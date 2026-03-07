@@ -21,6 +21,7 @@ model Company {
   lng Decimal?
 
   members CompanyMember[]
+  offers Offer[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

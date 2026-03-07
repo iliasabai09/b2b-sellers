@@ -1,0 +1,14 @@
+model ProductSpec {
+  id        Int    @id @default(autoincrement())
+  productId Int
+  specId    Int
+  value     String // храним как строку, чтобы было проще и гибче
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  spec      Spec    @relation(fields: [specId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, specId])
+  @@index([productId])
+  @@index([specId])
+  @@map("product_specs")
+}

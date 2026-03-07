@@ -48,7 +48,8 @@ model Category {
   imageUrl  String?     // картинка категории
   sort      Int      @default(0)
   isActive  Boolean  @default(true)
-
+  products Product[]
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -81,6 +82,7 @@ model Company {
   lng Decimal?
 
   members CompanyMember[]
+  offers Offer[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -145,6 +147,20 @@ enum ProductOptionType {
   HEIGHT
 }
 
+enum SpecType {
+  TEXT
+  NUMBER
+  BOOLEAN
+}
+
+enum Unit {
+  PCS
+  BOX
+  PACK
+  KG
+  M
+}
+
 model Region {
   id        Int      @id @default(autoincrement())
   name      String   @unique
@@ -169,13 +185,130 @@ model City {
   @@map("cities")
 }
 
+model Offer {
+  id          Int      @id @default(autoincrement())
+
+  productId   Int
+  product     Product  @relation(fields: [productId], references: [id])
+
+  companyId   Int
+  company     Company  @relation(fields: [companyId], references: [id])
+
+  price       Decimal  @db.Decimal(10, 2)
+  stock       Int
+
+  orderStep   Int      @default(1)
+  minOrderQty Int      @default(1)
+
+  unit        String?  // pcs, box, pack, kg, m
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+  @@index([companyId])
+  @@map("offers")
+}
+
 model Option {
   id        Int               @id @default(autoincrement())
   type      ProductOptionType @unique
   name      String
+  productOptionValues ProductOptionValue[]
 
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
 
   @@map("options")
+}
+
+model ProductGroup {
+  id        Int       @id @default(autoincrement())
+  name      String
+
+  products  Product[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("product_groups")
+}
+
+model ProductOptionValue {
+  id        Int @id @default(autoincrement())
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  optionId  Int
+  option    Option @relation(fields: [optionId], references: [id])
+
+  value     String
+
+  @@index([productId])
+  @@index([optionId])
+  @@map("product_option_values")
+}
+
+model ProductSpec {
+  id        Int    @id @default(autoincrement())
+  productId Int
+  specId    Int
+  value     String // храним как строку, чтобы было проще и гибче
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  spec      Spec    @relation(fields: [specId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, specId])
+  @@index([productId])
+  @@index([specId])
+  @@map("product_specs")
+}
+
+model Product {
+  id           Int      @id @default(autoincrement())
+
+  name         String
+  description  String?
+
+  sku          String?  @unique
+  barcode      String?
+  article      String?
+  brand        String?
+
+  images       String[]
+
+  categoryId   Int?
+  category     Category? @relation(fields: [categoryId], references: [id])
+
+  groupId      Int?
+  group        ProductGroup? @relation(fields: [groupId], references: [id])
+
+  optionValues ProductOptionValue[]
+  productSpecs ProductSpec[]
+  offers       Offer[]
+
+  isActive     Boolean  @default(true)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([groupId])
+  @@index([name])
+  @@map("products")
+}
+
+model Spec {
+  id        Int      @id @default(autoincrement())
+  name      String   // например: "Страна производства", "Мощность", "Объем"
+  key       String   @unique // например: "country", "power", "volume"
+  type      SpecType @default(TEXT)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  productSpecs ProductSpec[]
+
+  @@map("specs")
 }

@@ -48,7 +48,37 @@ export type Region = Prisma.RegionModel
  */
 export type City = Prisma.CityModel
 /**
+ * Model Offer
+ * 
+ */
+export type Offer = Prisma.OfferModel
+/**
  * Model Option
  * 
  */
 export type Option = Prisma.OptionModel
+/**
+ * Model ProductGroup
+ * 
+ */
+export type ProductGroup = Prisma.ProductGroupModel
+/**
+ * Model ProductOptionValue
+ * 
+ */
+export type ProductOptionValue = Prisma.ProductOptionValueModel
+/**
+ * Model ProductSpec
+ * 
+ */
+export type ProductSpec = Prisma.ProductSpecModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model Spec
+ * 
+ */
+export type Spec = Prisma.SpecModel

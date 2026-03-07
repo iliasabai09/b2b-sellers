@@ -1,0 +1,24 @@
+model Offer {
+  id          Int      @id @default(autoincrement())
+
+  productId   Int
+  product     Product  @relation(fields: [productId], references: [id])
+
+  companyId   Int
+  company     Company  @relation(fields: [companyId], references: [id])
+
+  price       Decimal  @db.Decimal(10, 2)
+  stock       Int
+
+  orderStep   Int      @default(1)
+  minOrderQty Int      @default(1)
+
+  unit        String?  // pcs, box, pack, kg, m
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+  @@index([companyId])
+  @@map("offers")
+}

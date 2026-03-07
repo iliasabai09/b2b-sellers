@@ -59,3 +59,23 @@ export const ProductOptionType = {
 } as const
 
 export type ProductOptionType = (typeof ProductOptionType)[keyof typeof ProductOptionType]
+
+
+export const SpecType = {
+  TEXT: 'TEXT',
+  NUMBER: 'NUMBER',
+  BOOLEAN: 'BOOLEAN'
+} as const
+
+export type SpecType = (typeof SpecType)[keyof typeof SpecType]
+
+
+export const Unit = {
+  PCS: 'PCS',
+  BOX: 'BOX',
+  PACK: 'PACK',
+  KG: 'KG',
+  M: 'M'
+} as const
+
+export type Unit = (typeof Unit)[keyof typeof Unit]

@@ -318,6 +318,7 @@ export type CompanyWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   city?: Prisma.XOR<Prisma.CityNullableScalarRelationFilter, Prisma.CityWhereInput> | null
   members?: Prisma.CompanyMemberListRelationFilter
+  offers?: Prisma.OfferListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -339,6 +340,7 @@ export type CompanyOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   city?: Prisma.CityOrderByWithRelationInput
   members?: Prisma.CompanyMemberOrderByRelationAggregateInput
+  offers?: Prisma.OfferOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -363,6 +365,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   city?: Prisma.XOR<Prisma.CityNullableScalarRelationFilter, Prisma.CityWhereInput> | null
   members?: Prisma.CompanyMemberListRelationFilter
+  offers?: Prisma.OfferListRelationFilter
 }, "id">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -428,6 +431,7 @@ export type CompanyCreateInput = {
   updatedAt?: Date | string
   city?: Prisma.CityCreateNestedOneWithoutCompaniesInput
   members?: Prisma.CompanyMemberCreateNestedManyWithoutCompanyInput
+  offers?: Prisma.OfferCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -448,6 +452,7 @@ export type CompanyUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.CompanyMemberUncheckedCreateNestedManyWithoutCompanyInput
+  offers?: Prisma.OfferUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -467,6 +472,7 @@ export type CompanyUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   city?: Prisma.CityUpdateOneWithoutCompaniesNestedInput
   members?: Prisma.CompanyMemberUpdateManyWithoutCompanyNestedInput
+  offers?: Prisma.OfferUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -487,6 +493,7 @@ export type CompanyUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.CompanyMemberUncheckedUpdateManyWithoutCompanyNestedInput
+  offers?: Prisma.OfferUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -698,6 +705,20 @@ export type CompanyUncheckedUpdateManyWithoutCityNestedInput = {
   deleteMany?: Prisma.CompanyScalarWhereInput | Prisma.CompanyScalarWhereInput[]
 }
 
+export type CompanyCreateNestedOneWithoutOffersInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutOffersInput, Prisma.CompanyUncheckedCreateWithoutOffersInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutOffersInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutOffersNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutOffersInput, Prisma.CompanyUncheckedCreateWithoutOffersInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutOffersInput
+  upsert?: Prisma.CompanyUpsertWithoutOffersInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutOffersInput, Prisma.CompanyUpdateWithoutOffersInput>, Prisma.CompanyUncheckedUpdateWithoutOffersInput>
+}
+
 export type CompanyCreateWithoutMembersInput = {
   name: string
   status?: $Enums.CompanyStatus
@@ -714,6 +735,7 @@ export type CompanyCreateWithoutMembersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   city?: Prisma.CityCreateNestedOneWithoutCompaniesInput
+  offers?: Prisma.OfferCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutMembersInput = {
@@ -733,6 +755,7 @@ export type CompanyUncheckedCreateWithoutMembersInput = {
   lng?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  offers?: Prisma.OfferUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutMembersInput = {
@@ -767,6 +790,7 @@ export type CompanyUpdateWithoutMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   city?: Prisma.CityUpdateOneWithoutCompaniesNestedInput
+  offers?: Prisma.OfferUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutMembersInput = {
@@ -786,6 +810,7 @@ export type CompanyUncheckedUpdateWithoutMembersInput = {
   lng?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  offers?: Prisma.OfferUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutCityInput = {
@@ -804,6 +829,7 @@ export type CompanyCreateWithoutCityInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.CompanyMemberCreateNestedManyWithoutCompanyInput
+  offers?: Prisma.OfferCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutCityInput = {
@@ -823,6 +849,7 @@ export type CompanyUncheckedCreateWithoutCityInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.CompanyMemberUncheckedCreateNestedManyWithoutCompanyInput
+  offers?: Prisma.OfferUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutCityInput = {
@@ -873,6 +900,100 @@ export type CompanyScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
 }
 
+export type CompanyCreateWithoutOffersInput = {
+  name: string
+  status?: $Enums.CompanyStatus
+  logoUrl?: string | null
+  address?: string | null
+  phone?: string | null
+  telegram?: string | null
+  whatsapp?: string | null
+  instagram?: string | null
+  tiktok?: string | null
+  workTime?: string | null
+  lat?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lng?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  city?: Prisma.CityCreateNestedOneWithoutCompaniesInput
+  members?: Prisma.CompanyMemberCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutOffersInput = {
+  id?: number
+  name: string
+  status?: $Enums.CompanyStatus
+  logoUrl?: string | null
+  address?: string | null
+  phone?: string | null
+  telegram?: string | null
+  whatsapp?: string | null
+  instagram?: string | null
+  tiktok?: string | null
+  workTime?: string | null
+  cityId?: number | null
+  lat?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lng?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.CompanyMemberUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutOffersInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutOffersInput, Prisma.CompanyUncheckedCreateWithoutOffersInput>
+}
+
+export type CompanyUpsertWithoutOffersInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutOffersInput, Prisma.CompanyUncheckedUpdateWithoutOffersInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutOffersInput, Prisma.CompanyUncheckedCreateWithoutOffersInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutOffersInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutOffersInput, Prisma.CompanyUncheckedUpdateWithoutOffersInput>
+}
+
+export type CompanyUpdateWithoutOffersInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telegram?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instagram?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiktok?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lng?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  city?: Prisma.CityUpdateOneWithoutCompaniesNestedInput
+  members?: Prisma.CompanyMemberUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutOffersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telegram?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instagram?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiktok?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cityId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lat?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  lng?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.CompanyMemberUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
 export type CompanyCreateManyCityInput = {
   id?: number
   name: string
@@ -907,6 +1028,7 @@ export type CompanyUpdateWithoutCityInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.CompanyMemberUpdateManyWithoutCompanyNestedInput
+  offers?: Prisma.OfferUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutCityInput = {
@@ -926,6 +1048,7 @@ export type CompanyUncheckedUpdateWithoutCityInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.CompanyMemberUncheckedUpdateManyWithoutCompanyNestedInput
+  offers?: Prisma.OfferUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateManyWithoutCityInput = {
@@ -953,10 +1076,12 @@ export type CompanyUncheckedUpdateManyWithoutCityInput = {
 
 export type CompanyCountOutputType = {
   members: number
+  offers: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   members?: boolean | CompanyCountOutputTypeCountMembersArgs
+  offers?: boolean | CompanyCountOutputTypeCountOffersArgs
 }
 
 /**
@@ -974,6 +1099,13 @@ export type CompanyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
  */
 export type CompanyCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CompanyMemberWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountOffersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OfferWhereInput
 }
 
 
@@ -996,6 +1128,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   updatedAt?: boolean
   city?: boolean | Prisma.Company$cityArgs<ExtArgs>
   members?: boolean | Prisma.Company$membersArgs<ExtArgs>
+  offers?: boolean | Prisma.Company$offersArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -1062,6 +1195,7 @@ export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   city?: boolean | Prisma.Company$cityArgs<ExtArgs>
   members?: boolean | Prisma.Company$membersArgs<ExtArgs>
+  offers?: boolean | Prisma.Company$offersArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1076,6 +1210,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     city: Prisma.$CityPayload<ExtArgs> | null
     members: Prisma.$CompanyMemberPayload<ExtArgs>[]
+    offers: Prisma.$OfferPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1490,6 +1625,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   city<T extends Prisma.Company$cityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$cityArgs<ExtArgs>>): Prisma.Prisma__CityClient<runtime.Types.Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   members<T extends Prisma.Company$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  offers<T extends Prisma.Company$offersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$offersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1971,6 +2107,30 @@ export type Company$membersArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.CompanyMemberScalarFieldEnum | Prisma.CompanyMemberScalarFieldEnum[]
+}
+
+/**
+ * Company.offers
+ */
+export type Company$offersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Offer
+   */
+  select?: Prisma.OfferSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Offer
+   */
+  omit?: Prisma.OfferOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OfferInclude<ExtArgs> | null
+  where?: Prisma.OfferWhereInput
+  orderBy?: Prisma.OfferOrderByWithRelationInput | Prisma.OfferOrderByWithRelationInput[]
+  cursor?: Prisma.OfferWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OfferScalarFieldEnum | Prisma.OfferScalarFieldEnum[]
 }
 
 /**

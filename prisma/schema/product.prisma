@@ -1,0 +1,33 @@
+model Product {
+  id           Int      @id @default(autoincrement())
+
+  name         String
+  description  String?
+
+  sku          String?  @unique
+  barcode      String?
+  article      String?
+  brand        String?
+
+  images       String[]
+
+  categoryId   Int?
+  category     Category? @relation(fields: [categoryId], references: [id])
+
+  groupId      Int?
+  group        ProductGroup? @relation(fields: [groupId], references: [id])
+
+  optionValues ProductOptionValue[]
+  productSpecs ProductSpec[]
+  offers       Offer[]
+
+  isActive     Boolean  @default(true)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([groupId])
+  @@index([name])
+  @@map("products")
+}

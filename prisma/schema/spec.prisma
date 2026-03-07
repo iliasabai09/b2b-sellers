@@ -1,0 +1,13 @@
+model Spec {
+  id        Int      @id @default(autoincrement())
+  name      String   // например: "Страна производства", "Мощность", "Объем"
+  key       String   @unique // например: "country", "power", "volume"
+  type      SpecType @default(TEXT)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  productSpecs ProductSpec[]
+
+  @@map("specs")
+}

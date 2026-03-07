@@ -11,6 +11,8 @@ import { CompanyModule } from '@modules/company/company.module';
 import { UserModule } from '@modules/user/user.module';
 import { CategoryModule } from './modules/category/category.module';
 import { OptionModule } from './modules/option/option.module';
+import { ProductController } from './modules/product/product.controller';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
@@ -26,8 +28,9 @@ import { OptionModule } from './modules/option/option.module';
     UserModule,
     CategoryModule,
     OptionModule,
+    ProductModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, ProductController],
   providers: [AppService],
 })
 export class AppModule {}

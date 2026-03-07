@@ -216,6 +216,7 @@ export type OptionWhereInput = {
   name?: Prisma.StringFilter<"Option"> | string
   createdAt?: Prisma.DateTimeFilter<"Option"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Option"> | Date | string
+  productOptionValues?: Prisma.ProductOptionValueListRelationFilter
 }
 
 export type OptionOrderByWithRelationInput = {
@@ -224,6 +225,7 @@ export type OptionOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  productOptionValues?: Prisma.ProductOptionValueOrderByRelationAggregateInput
 }
 
 export type OptionWhereUniqueInput = Prisma.AtLeast<{
@@ -235,6 +237,7 @@ export type OptionWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Option"> | string
   createdAt?: Prisma.DateTimeFilter<"Option"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Option"> | Date | string
+  productOptionValues?: Prisma.ProductOptionValueListRelationFilter
 }, "id" | "type">
 
 export type OptionOrderByWithAggregationInput = {
@@ -266,6 +269,7 @@ export type OptionCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  productOptionValues?: Prisma.ProductOptionValueCreateNestedManyWithoutOptionInput
 }
 
 export type OptionUncheckedCreateInput = {
@@ -274,6 +278,7 @@ export type OptionUncheckedCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  productOptionValues?: Prisma.ProductOptionValueUncheckedCreateNestedManyWithoutOptionInput
 }
 
 export type OptionUpdateInput = {
@@ -281,6 +286,7 @@ export type OptionUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  productOptionValues?: Prisma.ProductOptionValueUpdateManyWithoutOptionNestedInput
 }
 
 export type OptionUncheckedUpdateInput = {
@@ -289,6 +295,7 @@ export type OptionUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  productOptionValues?: Prisma.ProductOptionValueUncheckedUpdateManyWithoutOptionNestedInput
 }
 
 export type OptionCreateManyInput = {
@@ -346,10 +353,104 @@ export type OptionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type OptionScalarRelationFilter = {
+  is?: Prisma.OptionWhereInput
+  isNot?: Prisma.OptionWhereInput
+}
+
 export type EnumProductOptionTypeFieldUpdateOperationsInput = {
   set?: $Enums.ProductOptionType
 }
 
+export type OptionCreateNestedOneWithoutProductOptionValuesInput = {
+  create?: Prisma.XOR<Prisma.OptionCreateWithoutProductOptionValuesInput, Prisma.OptionUncheckedCreateWithoutProductOptionValuesInput>
+  connectOrCreate?: Prisma.OptionCreateOrConnectWithoutProductOptionValuesInput
+  connect?: Prisma.OptionWhereUniqueInput
+}
+
+export type OptionUpdateOneRequiredWithoutProductOptionValuesNestedInput = {
+  create?: Prisma.XOR<Prisma.OptionCreateWithoutProductOptionValuesInput, Prisma.OptionUncheckedCreateWithoutProductOptionValuesInput>
+  connectOrCreate?: Prisma.OptionCreateOrConnectWithoutProductOptionValuesInput
+  upsert?: Prisma.OptionUpsertWithoutProductOptionValuesInput
+  connect?: Prisma.OptionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OptionUpdateToOneWithWhereWithoutProductOptionValuesInput, Prisma.OptionUpdateWithoutProductOptionValuesInput>, Prisma.OptionUncheckedUpdateWithoutProductOptionValuesInput>
+}
+
+export type OptionCreateWithoutProductOptionValuesInput = {
+  type: $Enums.ProductOptionType
+  name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OptionUncheckedCreateWithoutProductOptionValuesInput = {
+  id?: number
+  type: $Enums.ProductOptionType
+  name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OptionCreateOrConnectWithoutProductOptionValuesInput = {
+  where: Prisma.OptionWhereUniqueInput
+  create: Prisma.XOR<Prisma.OptionCreateWithoutProductOptionValuesInput, Prisma.OptionUncheckedCreateWithoutProductOptionValuesInput>
+}
+
+export type OptionUpsertWithoutProductOptionValuesInput = {
+  update: Prisma.XOR<Prisma.OptionUpdateWithoutProductOptionValuesInput, Prisma.OptionUncheckedUpdateWithoutProductOptionValuesInput>
+  create: Prisma.XOR<Prisma.OptionCreateWithoutProductOptionValuesInput, Prisma.OptionUncheckedCreateWithoutProductOptionValuesInput>
+  where?: Prisma.OptionWhereInput
+}
+
+export type OptionUpdateToOneWithWhereWithoutProductOptionValuesInput = {
+  where?: Prisma.OptionWhereInput
+  data: Prisma.XOR<Prisma.OptionUpdateWithoutProductOptionValuesInput, Prisma.OptionUncheckedUpdateWithoutProductOptionValuesInput>
+}
+
+export type OptionUpdateWithoutProductOptionValuesInput = {
+  type?: Prisma.EnumProductOptionTypeFieldUpdateOperationsInput | $Enums.ProductOptionType
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OptionUncheckedUpdateWithoutProductOptionValuesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumProductOptionTypeFieldUpdateOperationsInput | $Enums.ProductOptionType
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type OptionCountOutputType
+ */
+
+export type OptionCountOutputType = {
+  productOptionValues: number
+}
+
+export type OptionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  productOptionValues?: boolean | OptionCountOutputTypeCountProductOptionValuesArgs
+}
+
+/**
+ * OptionCountOutputType without action
+ */
+export type OptionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OptionCountOutputType
+   */
+  select?: Prisma.OptionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * OptionCountOutputType without action
+ */
+export type OptionCountOutputTypeCountProductOptionValuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductOptionValueWhereInput
+}
 
 
 export type OptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -358,6 +459,8 @@ export type OptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  productOptionValues?: boolean | Prisma.Option$productOptionValuesArgs<ExtArgs>
+  _count?: boolean | Prisma.OptionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["option"]>
 
 export type OptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -385,10 +488,18 @@ export type OptionSelectScalar = {
 }
 
 export type OptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["option"]>
+export type OptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  productOptionValues?: boolean | Prisma.Option$productOptionValuesArgs<ExtArgs>
+  _count?: boolean | Prisma.OptionCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type OptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type OptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $OptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Option"
-  objects: {}
+  objects: {
+    productOptionValues: Prisma.$ProductOptionValuePayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     type: $Enums.ProductOptionType
@@ -789,6 +900,7 @@ readonly fields: OptionFieldRefs;
  */
 export interface Prisma__OptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  productOptionValues<T extends Prisma.Option$productOptionValuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Option$productOptionValuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductOptionValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -840,6 +952,10 @@ export type OptionFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
+  /**
    * Filter, which Option to fetch.
    */
   where: Prisma.OptionWhereUniqueInput
@@ -858,6 +974,10 @@ export type OptionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
+  /**
    * Filter, which Option to fetch.
    */
   where: Prisma.OptionWhereUniqueInput
@@ -875,6 +995,10 @@ export type OptionFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Option
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
   /**
    * Filter, which Option to fetch.
    */
@@ -924,6 +1048,10 @@ export type OptionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
+  /**
    * Filter, which Option to fetch.
    */
   where?: Prisma.OptionWhereInput
@@ -972,6 +1100,10 @@ export type OptionFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
+  /**
    * Filter, which Options to fetch.
    */
   where?: Prisma.OptionWhereInput
@@ -1014,6 +1146,10 @@ export type OptionCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Option
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
   /**
    * The data needed to create a Option.
    */
@@ -1062,6 +1198,10 @@ export type OptionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Option
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
   /**
    * The data needed to update a Option.
    */
@@ -1129,6 +1269,10 @@ export type OptionUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
+  /**
    * The filter to search for the Option to update in case it exists.
    */
   where: Prisma.OptionWhereUniqueInput
@@ -1155,6 +1299,10 @@ export type OptionDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
+  /**
    * Filter which Option to delete.
    */
   where: Prisma.OptionWhereUniqueInput
@@ -1175,6 +1323,30 @@ export type OptionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Option.productOptionValues
+ */
+export type Option$productOptionValuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductOptionValue
+   */
+  select?: Prisma.ProductOptionValueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductOptionValue
+   */
+  omit?: Prisma.ProductOptionValueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductOptionValueInclude<ExtArgs> | null
+  where?: Prisma.ProductOptionValueWhereInput
+  orderBy?: Prisma.ProductOptionValueOrderByWithRelationInput | Prisma.ProductOptionValueOrderByWithRelationInput[]
+  cursor?: Prisma.ProductOptionValueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductOptionValueScalarFieldEnum | Prisma.ProductOptionValueScalarFieldEnum[]
+}
+
+/**
  * Option without action
  */
 export type OptionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1186,4 +1358,8 @@ export type OptionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Option
    */
   omit?: Prisma.OptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OptionInclude<ExtArgs> | null
 }
