@@ -24,6 +24,7 @@ import { ProductService } from '@modules/product/product.service';
 import { AuthGuard } from '@core/guards/jwt-auth.guard';
 import { type UserReq } from '@shared/types/req-user.type';
 import { CreateProductWithOfferDto } from '@modules/product/to/dto/request/create-product.dto';
+import { CreateProductGroupWithOffersDto } from '@modules/product/to/dto/request/create-product-group.dto';
 
 @Controller('product')
 @ApiBearerAuth('access-token')
@@ -55,5 +56,13 @@ export class ProductController {
     @Body() dto: CreateProductWithOfferDto,
   ) {
     return this.productService.createProductWithOffer(req, dto);
+  }
+
+  @Post('group-with-offer')
+  createProductGroupWithOffer(
+    @Req() req: UserReq,
+    @Body() dto: CreateProductGroupWithOffersDto,
+  ) {
+    return this.productService.createProductGroupWithOffers(req, dto);
   }
 }

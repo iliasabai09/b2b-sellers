@@ -9,6 +9,8 @@ import { decodeBaseImgUrl } from '@shared/utils/decodeBaseImgUrl';
 import { PrismaService } from '@core/prisma/prisma.service';
 import { type UserJwt } from '@shared/types/req-user.type';
 import { CreateProductWithOfferDto } from '@modules/product/to/dto/request/create-product.dto';
+import { CreateProductGroupWithOffersDto } from '@modules/product/to/dto/request/create-product-group.dto';
+import { Product } from '@core/generated/client';
 
 @Injectable()
 export class ProductService {
@@ -120,6 +122,114 @@ export class ProductService {
       return {
         productId: product.id,
         offerId: offer.id,
+      };
+    });
+  }
+
+  async createProductGroupWithOffers(
+    req: UserJwt,
+    dto: CreateProductGroupWithOffersDto,
+  ) {
+    const companyId = req.user.companyId;
+
+    if (!companyId) {
+      throw new BadRequestException('companyId не найден в токене');
+    }
+
+    return this.prismaService.$transaction(async (tx) => {
+      const group = await tx.productGroup.create({
+        data: {
+          name: dto.name.trim(),
+        },
+      });
+
+      const createdProducts: Product[] = [];
+
+      const optionIds = [
+        ...new Set(
+          dto.variants.flatMap((variant) =>
+            variant.optionValues.map((item) => item.optionId),
+          ),
+        ),
+      ];
+
+      const existingOptions = await tx.option.findMany({
+        where: {
+          id: { in: optionIds },
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+
+      if (existingOptions.length !== optionIds.length) {
+        const existingOptionIds = new Set(
+          existingOptions.map((item) => item.id),
+        );
+        const missingOptionIds = optionIds.filter(
+          (id) => !existingOptionIds.has(id),
+        );
+
+        throw new BadRequestException(
+          `Опции не найдены: ${missingOptionIds.join(', ')}`,
+        );
+      }
+
+      for (const variant of dto.variants) {
+        const productName = [
+          dto.name.trim(),
+          ...variant.optionValues
+            .map((item) => item.value.trim())
+            .filter(Boolean),
+        ].join(' ');
+        const product = await tx.product.create({
+          data: {
+            name: productName,
+            description: dto.description?.trim(),
+            images:
+              dto.photos?.map((item) => item.trim()).filter(Boolean) ?? [],
+            categoryId: dto.categoryId,
+            groupId: group.id,
+            isActive: true,
+          },
+        });
+
+        if (dto.specs?.length) {
+          await tx.productSpec.createMany({
+            data: dto.specs.map((spec) => ({
+              productId: product.id,
+              specId: spec.specId,
+              value: spec.value.trim(),
+            })),
+          });
+        }
+
+        if (variant.optionValues?.length) {
+          await tx.productOptionValue.createMany({
+            data: variant.optionValues.map((item) => ({
+              productId: product.id,
+              optionId: item.optionId,
+              value: item.value.trim(),
+            })),
+          });
+        }
+
+        await tx.offer.create({
+          data: {
+            productId: product.id,
+            companyId,
+            price: variant.offer.price,
+            stock: variant.offer.stock ?? 0,
+          },
+        });
+
+        createdProducts.push(product);
+      }
+
+      return {
+        group,
+        products: createdProducts,
       };
     });
   }
