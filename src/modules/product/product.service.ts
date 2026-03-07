@@ -233,4 +233,59 @@ export class ProductService {
       };
     });
   }
+
+  async getProductsBySupplier(companyId: number, search?: string) {
+    if (!companyId) {
+      throw new BadRequestException('companyId обязателен');
+    }
+
+    const products = await this.prismaService.product.findMany({
+      where: {
+        isActive: true,
+        ...(search?.trim()
+          ? {
+              name: {
+                contains: search.trim(),
+                mode: 'insensitive',
+              },
+            }
+          : {}),
+        offers: {
+          some: {
+            companyId,
+            isActive: true,
+          },
+        },
+      },
+      orderBy: {
+        id: 'desc',
+      },
+      select: {
+        id: true,
+        name: true,
+        offers: {
+          where: {
+            companyId,
+            isActive: true,
+          },
+          select: {
+            price: true,
+            stock: true,
+          },
+          take: 1,
+        },
+      },
+    });
+
+    return products.map((product) => {
+      const offer = product.offers[0];
+
+      return {
+        id: product.id,
+        name: product.name,
+        price: offer?.price ?? null,
+        inStock: (offer?.stock ?? 0) > 0,
+      };
+    });
+  }
 }

@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   Req,
   UploadedFile,
   UseGuards,
@@ -64,5 +66,13 @@ export class ProductController {
     @Body() dto: CreateProductGroupWithOffersDto,
   ) {
     return this.productService.createProductGroupWithOffers(req, dto);
+  }
+
+  @Get('supplier/:companyId')
+  getProductsBySupplier(@Req() req: UserReq, @Query('search') search?: string) {
+    return this.productService.getProductsBySupplier(
+      req.user.companyId,
+      search,
+    );
   }
 }
