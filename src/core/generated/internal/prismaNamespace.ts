@@ -1519,6 +1519,7 @@ export const OfferScalarFieldEnum = {
   stock: 'stock',
   orderStep: 'orderStep',
   minOrderQty: 'minOrderQty',
+  isActive: 'isActive',
   unit: 'unit',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

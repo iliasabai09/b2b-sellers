@@ -54,6 +54,7 @@ export type OfferMinAggregateOutputType = {
   stock: number | null
   orderStep: number | null
   minOrderQty: number | null
+  isActive: boolean | null
   unit: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -67,6 +68,7 @@ export type OfferMaxAggregateOutputType = {
   stock: number | null
   orderStep: number | null
   minOrderQty: number | null
+  isActive: boolean | null
   unit: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -80,6 +82,7 @@ export type OfferCountAggregateOutputType = {
   stock: number
   orderStep: number
   minOrderQty: number
+  isActive: number
   unit: number
   createdAt: number
   updatedAt: number
@@ -115,6 +118,7 @@ export type OfferMinAggregateInputType = {
   stock?: true
   orderStep?: true
   minOrderQty?: true
+  isActive?: true
   unit?: true
   createdAt?: true
   updatedAt?: true
@@ -128,6 +132,7 @@ export type OfferMaxAggregateInputType = {
   stock?: true
   orderStep?: true
   minOrderQty?: true
+  isActive?: true
   unit?: true
   createdAt?: true
   updatedAt?: true
@@ -141,6 +146,7 @@ export type OfferCountAggregateInputType = {
   stock?: true
   orderStep?: true
   minOrderQty?: true
+  isActive?: true
   unit?: true
   createdAt?: true
   updatedAt?: true
@@ -241,6 +247,7 @@ export type OfferGroupByOutputType = {
   stock: number
   orderStep: number
   minOrderQty: number
+  isActive: boolean
   unit: string | null
   createdAt: Date
   updatedAt: Date
@@ -277,6 +284,7 @@ export type OfferWhereInput = {
   stock?: Prisma.IntFilter<"Offer"> | number
   orderStep?: Prisma.IntFilter<"Offer"> | number
   minOrderQty?: Prisma.IntFilter<"Offer"> | number
+  isActive?: Prisma.BoolFilter<"Offer"> | boolean
   unit?: Prisma.StringNullableFilter<"Offer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Offer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Offer"> | Date | string
@@ -292,6 +300,7 @@ export type OfferOrderByWithRelationInput = {
   stock?: Prisma.SortOrder
   orderStep?: Prisma.SortOrder
   minOrderQty?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   unit?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -310,6 +319,7 @@ export type OfferWhereUniqueInput = Prisma.AtLeast<{
   stock?: Prisma.IntFilter<"Offer"> | number
   orderStep?: Prisma.IntFilter<"Offer"> | number
   minOrderQty?: Prisma.IntFilter<"Offer"> | number
+  isActive?: Prisma.BoolFilter<"Offer"> | boolean
   unit?: Prisma.StringNullableFilter<"Offer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Offer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Offer"> | Date | string
@@ -325,6 +335,7 @@ export type OfferOrderByWithAggregationInput = {
   stock?: Prisma.SortOrder
   orderStep?: Prisma.SortOrder
   minOrderQty?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   unit?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -346,6 +357,7 @@ export type OfferScalarWhereWithAggregatesInput = {
   stock?: Prisma.IntWithAggregatesFilter<"Offer"> | number
   orderStep?: Prisma.IntWithAggregatesFilter<"Offer"> | number
   minOrderQty?: Prisma.IntWithAggregatesFilter<"Offer"> | number
+  isActive?: Prisma.BoolWithAggregatesFilter<"Offer"> | boolean
   unit?: Prisma.StringNullableWithAggregatesFilter<"Offer"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Offer"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Offer"> | Date | string
@@ -356,6 +368,7 @@ export type OfferCreateInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -371,6 +384,7 @@ export type OfferUncheckedCreateInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -381,6 +395,7 @@ export type OfferUpdateInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -396,6 +411,7 @@ export type OfferUncheckedUpdateInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -409,6 +425,7 @@ export type OfferCreateManyInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -419,6 +436,7 @@ export type OfferUpdateManyMutationInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -432,6 +450,7 @@ export type OfferUncheckedUpdateManyInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -455,6 +474,7 @@ export type OfferCountOrderByAggregateInput = {
   stock?: Prisma.SortOrder
   orderStep?: Prisma.SortOrder
   minOrderQty?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -478,6 +498,7 @@ export type OfferMaxOrderByAggregateInput = {
   stock?: Prisma.SortOrder
   orderStep?: Prisma.SortOrder
   minOrderQty?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -491,6 +512,7 @@ export type OfferMinOrderByAggregateInput = {
   stock?: Prisma.SortOrder
   orderStep?: Prisma.SortOrder
   minOrderQty?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -603,6 +625,7 @@ export type OfferCreateWithoutCompanyInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -616,6 +639,7 @@ export type OfferUncheckedCreateWithoutCompanyInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -658,6 +682,7 @@ export type OfferScalarWhereInput = {
   stock?: Prisma.IntFilter<"Offer"> | number
   orderStep?: Prisma.IntFilter<"Offer"> | number
   minOrderQty?: Prisma.IntFilter<"Offer"> | number
+  isActive?: Prisma.BoolFilter<"Offer"> | boolean
   unit?: Prisma.StringNullableFilter<"Offer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Offer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Offer"> | Date | string
@@ -668,6 +693,7 @@ export type OfferCreateWithoutProductInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -681,6 +707,7 @@ export type OfferUncheckedCreateWithoutProductInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -719,6 +746,7 @@ export type OfferCreateManyCompanyInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -729,6 +757,7 @@ export type OfferUpdateWithoutCompanyInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -742,6 +771,7 @@ export type OfferUncheckedUpdateWithoutCompanyInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -754,6 +784,7 @@ export type OfferUncheckedUpdateManyWithoutCompanyInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -766,6 +797,7 @@ export type OfferCreateManyProductInput = {
   stock: number
   orderStep?: number
   minOrderQty?: number
+  isActive?: boolean
   unit?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -776,6 +808,7 @@ export type OfferUpdateWithoutProductInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -789,6 +822,7 @@ export type OfferUncheckedUpdateWithoutProductInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -801,6 +835,7 @@ export type OfferUncheckedUpdateManyWithoutProductInput = {
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   orderStep?: Prisma.IntFieldUpdateOperationsInput | number
   minOrderQty?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -816,6 +851,7 @@ export type OfferSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   stock?: boolean
   orderStep?: boolean
   minOrderQty?: boolean
+  isActive?: boolean
   unit?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -831,6 +867,7 @@ export type OfferSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   stock?: boolean
   orderStep?: boolean
   minOrderQty?: boolean
+  isActive?: boolean
   unit?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -846,6 +883,7 @@ export type OfferSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   stock?: boolean
   orderStep?: boolean
   minOrderQty?: boolean
+  isActive?: boolean
   unit?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -861,12 +899,13 @@ export type OfferSelectScalar = {
   stock?: boolean
   orderStep?: boolean
   minOrderQty?: boolean
+  isActive?: boolean
   unit?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OfferOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "companyId" | "price" | "stock" | "orderStep" | "minOrderQty" | "unit" | "createdAt" | "updatedAt", ExtArgs["result"]["offer"]>
+export type OfferOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "companyId" | "price" | "stock" | "orderStep" | "minOrderQty" | "isActive" | "unit" | "createdAt" | "updatedAt", ExtArgs["result"]["offer"]>
 export type OfferInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -894,6 +933,7 @@ export type $OfferPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     stock: number
     orderStep: number
     minOrderQty: number
+    isActive: boolean
     unit: string | null
     createdAt: Date
     updatedAt: Date
@@ -1329,6 +1369,7 @@ export interface OfferFieldRefs {
   readonly stock: Prisma.FieldRef<"Offer", 'Int'>
   readonly orderStep: Prisma.FieldRef<"Offer", 'Int'>
   readonly minOrderQty: Prisma.FieldRef<"Offer", 'Int'>
+  readonly isActive: Prisma.FieldRef<"Offer", 'Boolean'>
   readonly unit: Prisma.FieldRef<"Offer", 'String'>
   readonly createdAt: Prisma.FieldRef<"Offer", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Offer", 'DateTime'>

@@ -4,10 +4,13 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiConsumes,
   ApiOperation,
@@ -18,8 +21,13 @@ import { UploadProductImageResDto } from '@modules/product/to/dto/res/upload-pro
 import { UPLOAD_PRODUCT_IMAGE_SCHEMA } from '@modules/product/to/dto/schema/swagger.schema';
 import { UploadProductImageDto } from '@modules/product/to/dto/request/upload-product-image.dto';
 import { ProductService } from '@modules/product/product.service';
+import { AuthGuard } from '@core/guards/jwt-auth.guard';
+import { type UserReq } from '@shared/types/req-user.type';
+import { CreateProductWithOfferDto } from '@modules/product/to/dto/request/create-product.dto';
 
 @Controller('product')
+@ApiBearerAuth('access-token')
+@UseGuards(AuthGuard)
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
@@ -39,5 +47,13 @@ export class ProductController {
     @Body() dto: UploadProductImageDto,
   ) {
     return this.productService.uploadProductImage(file, dto.oldUrl);
+  }
+
+  @Post('with-offer')
+  createProductWithOffer(
+    @Req() req: UserReq,
+    @Body() dto: CreateProductWithOfferDto,
+  ) {
+    return this.productService.createProductWithOffer(req, dto);
   }
 }

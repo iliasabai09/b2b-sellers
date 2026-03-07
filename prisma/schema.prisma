@@ -49,7 +49,7 @@ model Category {
   sort      Int      @default(0)
   isActive  Boolean  @default(true)
   products Product[]
-  
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -199,7 +199,7 @@ model Offer {
 
   orderStep   Int      @default(1)
   minOrderQty Int      @default(1)
-
+  isActive    Boolean  @default(true)
   unit        String?  // pcs, box, pack, kg, m
 
   createdAt   DateTime @default(now())

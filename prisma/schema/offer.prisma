@@ -12,7 +12,7 @@ model Offer {
 
   orderStep   Int      @default(1)
   minOrderQty Int      @default(1)
-
+  isActive    Boolean  @default(true)
   unit        String?  // pcs, box, pack, kg, m
 
   createdAt   DateTime @default(now())
