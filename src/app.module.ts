@@ -9,10 +9,9 @@ import { ConfigModule } from '@nestjs/config';
 import { AppJwtModule } from '@core/modules/jwt/jwt.module';
 import { CompanyModule } from '@modules/company/company.module';
 import { UserModule } from '@modules/user/user.module';
-import { CategoryModule } from './modules/category/category.module';
-import { OptionModule } from './modules/option/option.module';
-import { ProductController } from './modules/product/product.controller';
-import { ProductModule } from './modules/product/product.module';
+import { CategoryModule } from '@modules/category/category.module';
+import { OptionModule } from '@modules/option/option.module';
+import { ProductModule } from '@modules/product/product.module';
 
 @Module({
   imports: [
@@ -30,7 +29,7 @@ import { ProductModule } from './modules/product/product.module';
     OptionModule,
     ProductModule,
   ],
-  controllers: [AppController, ProductController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
