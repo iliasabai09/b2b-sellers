@@ -10,6 +10,7 @@ import { AppJwtModule } from '@core/modules/jwt/jwt.module';
 import { CompanyModule } from '@modules/company/company.module';
 import { UserModule } from '@modules/user/user.module';
 import { CategoryModule } from './modules/category/category.module';
+import { OptionModule } from './modules/option/option.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { CategoryModule } from './modules/category/category.module';
     CompanyModule,
     UserModule,
     CategoryModule,
+    OptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
