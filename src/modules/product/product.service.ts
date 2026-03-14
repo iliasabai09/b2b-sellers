@@ -10,7 +10,17 @@ import { PrismaService } from '@core/prisma/prisma.service';
 import { type UserJwt } from '@shared/types/req-user.type';
 import { CreateProductWithOfferDto } from '@modules/product/to/dto/request/create-product.dto';
 import { CreateProductGroupWithOffersDto } from '@modules/product/to/dto/request/create-product-group.dto';
-import { Product } from '@core/generated/client';
+import { Prisma, Product } from '@core/generated/client';
+import { supplierProductsSearchSearchSelect } from '@modules/product/select/supplier-products-search-select';
+import { supplierProductsSelect } from '@modules/product/select/supplier-products-select';
+
+type SupplierProductCardRow = {
+  id: number;
+  name: string;
+  images: string[];
+  price: Prisma.Decimal | number | null;
+  stock: number | null;
+};
 
 @Injectable()
 export class ProductService {
@@ -234,58 +244,34 @@ export class ProductService {
     });
   }
 
-  async getProductsBySupplier(companyId: number, search?: string) {
+  async getProductsBySupplier(
+    companyId: number,
+    categoryId?: number,
+    search?: string,
+  ) {
     if (!companyId) {
       throw new BadRequestException('companyId обязателен');
     }
 
-    const products = await this.prismaService.product.findMany({
-      where: {
-        isActive: true,
-        ...(search?.trim()
-          ? {
-              name: {
-                contains: search.trim(),
-                mode: 'insensitive',
-              },
-            }
-          : {}),
-        offers: {
-          some: {
-            companyId,
-            isActive: true,
-          },
-        },
-      },
-      orderBy: {
-        id: 'desc',
-      },
-      select: {
-        id: true,
-        name: true,
-        offers: {
-          where: {
-            companyId,
-            isActive: true,
-          },
-          select: {
-            price: true,
-            stock: true,
-          },
-          take: 1,
-        },
-      },
-    });
+    const normalizedSearch = search?.trim();
 
-    return products.map((product) => {
-      const offer = product.offers[0];
-
-      return {
-        id: product.id,
-        name: product.name,
-        price: offer?.price ?? null,
-        inStock: (offer?.stock ?? 0) > 0,
-      };
-    });
+    const rows = normalizedSearch
+      ? await this.prismaService.$queryRaw<SupplierProductCardRow[]>(
+          supplierProductsSearchSearchSelect(
+            companyId,
+            categoryId,
+            normalizedSearch,
+          ),
+        )
+      : await this.prismaService.$queryRaw<SupplierProductCardRow[]>(
+          supplierProductsSelect(companyId, categoryId),
+        );
+    return rows.map((item) => ({
+      id: item.id,
+      name: item.name,
+      images: item.images,
+      price: item.price ? Number(item.price) : null,
+      inStock: (item.stock ?? 0) > 0,
+    }));
   }
 }

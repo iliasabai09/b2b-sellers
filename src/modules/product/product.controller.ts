@@ -16,6 +16,7 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
 } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -68,10 +69,17 @@ export class ProductController {
     return this.productService.createProductGroupWithOffers(req, dto);
   }
 
-  @Get('supplier/:companyId')
-  getProductsBySupplier(@Req() req: UserReq, @Query('search') search?: string) {
+  @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiQuery({ name: 'categoryId', required: false, type: Number })
+  @Get('supplier')
+  getProductsBySupplier(
+    @Req() req: UserReq,
+    @Query('search') search?: string,
+    @Query('categoryId') categoryId?: number,
+  ) {
     return this.productService.getProductsBySupplier(
       req.user.companyId,
+      categoryId,
       search,
     );
   }

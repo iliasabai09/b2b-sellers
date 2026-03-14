@@ -13,12 +13,17 @@ import { PG_POOL } from './prisma.constants';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
         const url = config.get<string>('DATABASE_URL');
+        const isProduction = config.get('PROD') === 'TRUE';
         if (!url) throw new Error('DATABASE_URL is not set');
-
-        return new Pool({
-          connectionString: url,
-          // ssl: { rejectUnauthorized: false }, // todo unlock for dev
-        });
+        const poolConfig = isProduction
+          ? {
+              connectionString: url,
+            }
+          : {
+              connectionString: url,
+              ssl: { rejectUnauthorized: false },
+            };
+        return new Pool(poolConfig);
       },
     },
     PrismaService,
