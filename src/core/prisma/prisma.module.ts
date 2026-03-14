@@ -17,7 +17,7 @@ import { PG_POOL } from './prisma.constants';
 
         return new Pool({
           connectionString: url,
-          ssl: { rejectUnauthorized: false },
+          // ssl: { rejectUnauthorized: false }, // todo unlock for dev
         });
       },
     },
