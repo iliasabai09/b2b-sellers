@@ -5,6 +5,7 @@ export const UPLOAD_PRODUCT_IMAGE_SCHEMA = {
       image: {
         type: 'string',
         format: 'binary',
+        nullable: true,
       },
       oldUrl: {
         type: 'string',
@@ -12,6 +13,7 @@ export const UPLOAD_PRODUCT_IMAGE_SCHEMA = {
         nullable: true,
       },
     },
-    required: ['image'],
+    // required: ['image'],
+    required: [],
   },
 };

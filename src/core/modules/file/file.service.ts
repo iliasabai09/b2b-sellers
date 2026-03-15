@@ -21,7 +21,6 @@ function isMulterFile(f: unknown): f is Express.Multer.File {
 @Injectable()
 export class FileService {
   private readonly http: AxiosInstance;
-  private readonly _baseUrl = process.env.FILE_STORAGE_BASE;
   private readonly _projectName = process.env.FILE_STORAGE_PROJECT;
 
   constructor() {
@@ -50,13 +49,6 @@ export class FileService {
         'x-project-name': this._projectName,
       },
     };
-  }
-
-  private _removeLeadingSlash(value: string): string {
-    if (value.startsWith('/')) {
-      return value.slice(1);
-    }
-    return value;
   }
 
   async upload(file: unknown, url: string): Promise<string> {

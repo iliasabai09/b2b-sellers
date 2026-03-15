@@ -12,6 +12,7 @@ import { UserModule } from '@modules/user/user.module';
 import { CategoryModule } from '@modules/category/category.module';
 import { OptionModule } from '@modules/option/option.module';
 import { ProductModule } from '@modules/product/product.module';
+import { S3FileModule } from '@core/modules/s3-file/s3-file.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ProductModule } from '@modules/product/product.module';
     CategoryModule,
     OptionModule,
     ProductModule,
+    S3FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

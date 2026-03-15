@@ -3,9 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { FileService } from '@core/modules/file/file.service';
 import { encodeBaseImgUrl } from '@shared/utils/encodeBaseImgUrl';
-import { decodeBaseImgUrl } from '@shared/utils/decodeBaseImgUrl';
 import { PrismaService } from '@core/prisma/prisma.service';
 import { type UserJwt } from '@shared/types/req-user.type';
 import { CreateProductWithOfferDto } from '@modules/product/to/dto/request/create-product.dto';
@@ -13,6 +11,8 @@ import { CreateProductGroupWithOffersDto } from '@modules/product/to/dto/request
 import { Prisma, Product } from '@core/generated/client';
 import { supplierProductsSearchSearchSelect } from '@modules/product/select/supplier-products-search-select';
 import { supplierProductsSelect } from '@modules/product/select/supplier-products-select';
+import { S3FileService } from '@core/modules/s3-file/s3-file.service';
+import { decodeBaseImgUrl } from '@shared/utils/decodeBaseImgUrl';
 
 type SupplierProductCardRow = {
   id: number;
@@ -25,7 +25,7 @@ type SupplierProductCardRow = {
 @Injectable()
 export class ProductService {
   constructor(
-    private readonly fileService: FileService,
+    private readonly s3FileService: S3FileService,
     private readonly prismaService: PrismaService,
   ) {}
 
@@ -33,12 +33,13 @@ export class ProductService {
     let photoUrl = '';
 
     if (file) {
-      photoUrl =
-        (await this.fileService.updateFile(
-          file,
-          'products',
-          decodeBaseImgUrl(oldUrl),
-        )) || '';
+      photoUrl = await this.s3FileService.update(
+        file,
+        'products',
+        decodeBaseImgUrl(oldUrl),
+      );
+    } else {
+      photoUrl = await this.s3FileService.delete(decodeBaseImgUrl(oldUrl));
     }
 
     return encodeBaseImgUrl(photoUrl);
